@@ -1,4 +1,4 @@
-# mgopool<br> [![GoDoc](https://godoc.org/github.com/vsco/mgopool?status.svg)](https://godoc.org/github.com/vsco/mgopool)
+# mgopool<br> [![GoDoc](https://godoc.org/github.com/vsco/mgopool?status.svg)](https://godoc.org/github.com/vsco/mgopool) [![Build Status](https://travis-ci.org/vsco/mgopool.svg?branch=master)](https://travis-ci.org/vsco/mgopool)
 
 Package mgopool provides buffer implementations around [mgo.Session (v2)][mgo].
 
