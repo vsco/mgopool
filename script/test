@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+: ${MONGO_HOST:=127.0.0.1}
+
+test -z "$(gofmt -l -w .       | tee /dev/stderr)"
+test -z "$(golint ./...        | tee /dev/stderr)"
+test -z "$(go tool vet -test . | tee /dev/stderr)"
+
+go test -v -race -cover ./...

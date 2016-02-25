@@ -1,0 +1,15 @@
+sudo:     false
+language: go
+go:       1.6
+
+services:
+  - mongodb
+
+branches:
+  only:
+    - master
+
+env:
+  - MONGO_HOST=127.0.0.1
+
+script: script/test
