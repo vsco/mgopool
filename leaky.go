@@ -21,12 +21,13 @@ func NewLeaky(initial *mgo.Session, size int) Pool {
 
 func (p *leaky) Get() *mgo.Session {
 	select {
-	case s, closed := <-p.freeList:
-		if s == nil || !closed {
+	case s, more := <-p.freeList:
+		if s == nil || !more {
 			panic("pool has been closed")
 		}
 		return s
 	default:
+		// if freeList is empty, Copy a new session
 		return p.base.Copy()
 	}
 }
@@ -39,6 +40,7 @@ func (p *leaky) Put(s *mgo.Session) {
 	select {
 	case p.freeList <- s:
 	default:
+		// if freeList is full, close and discard the session
 		s.Close()
 	}
 }
