@@ -25,7 +25,7 @@ func (p *capped) Put(s *mgo.Session) {
 	select {
 	case <-p.leases:
 	default:
-		//noop
+		//if leases is empty, continue anyways
 	}
 
 	p.pool.Put(s)
