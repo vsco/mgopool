@@ -10,7 +10,7 @@
 // Both a leaky and capped version of the Pool is available, depending on need.
 package mgopool
 
-import "gopkg.in/mgo.v2"
+import mgo "gopkg.in/mgo.v2"
 
 // The Pool interface describes the mechanisms for retrieving and releasing mgo.Sessions. The pool should be used in
 // place of calling Copy/Clone and Close on mgo.Session directly.
@@ -23,6 +23,10 @@ type Pool interface {
 	// Put releases an *mgo.Session back into the Pool. Only healthy sessions (or nil) should be returned to the pool. If
 	// a session is errors, Refresh should be called before releasing it to the Pool.
 	Put(*mgo.Session)
+
+	// Used is the total number of outstanding leases associated with this Pool.
+	// Note, this is just a snapshot of the used leased at the time this method was invoked
+	Used() int
 
 	// Close drains the Pool, closing all held sessions. The initial session is not closed by this method. Calling Get or
 	// Put on a closed pool will result in a panic.
