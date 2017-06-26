@@ -66,3 +66,19 @@ func TestLeak_Close(t *testing.T) {
 		orig.Copy().Close()
 	})
 }
+
+func TestLeaky_Used(t *testing.T) {
+	orig := session(t)
+	defer orig.Close()
+
+	p := NewLeaky(orig, 1)
+	defer p.Close()
+	assert.Equal(t, 0, p.Used())
+
+	leak := p.Get()
+	assert.Equal(t, 1, p.Used())
+
+	p.Put(p.Get())
+	p.Put(leak)
+	assert.Equal(t, 0, p.Used())
+}

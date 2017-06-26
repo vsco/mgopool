@@ -1,12 +1,15 @@
 package mgopool
 
 import (
-	"gopkg.in/mgo.v2"
+	"sync/atomic"
+
+	mgo "gopkg.in/mgo.v2"
 )
 
 type leaky struct {
 	base     *mgo.Session
 	freeList chan *mgo.Session
+	used     int32
 }
 
 // NewLeaky creates a leaky Pool of sessions copied from initial. A maximum of size sessions will be held in the free
@@ -16,10 +19,13 @@ func NewLeaky(initial *mgo.Session, size int) Pool {
 	return &leaky{
 		base:     initial.Clone(),
 		freeList: make(chan *mgo.Session, size),
+		used:     0,
 	}
+
 }
 
 func (p *leaky) Get() *mgo.Session {
+	atomic.AddInt32(&p.used, 1)
 	select {
 	case s, more := <-p.freeList:
 		if s == nil || !more {
@@ -33,6 +39,7 @@ func (p *leaky) Get() *mgo.Session {
 }
 
 func (p *leaky) Put(s *mgo.Session) {
+	atomic.AddInt32(&p.used, -1)
 	if s == nil {
 		return
 	}
@@ -51,6 +58,10 @@ func (p *leaky) Close() {
 		s.Close()
 	}
 	p.base.Close()
+}
+
+func (p *leaky) Used() int {
+	return int(p.used)
 }
 
 var _ Pool = &leaky{}

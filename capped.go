@@ -1,6 +1,6 @@
 package mgopool
 
-import "gopkg.in/mgo.v2"
+import mgo "gopkg.in/mgo.v2"
 
 type capped struct {
 	pool   Pool
@@ -34,6 +34,10 @@ func (p *capped) Put(s *mgo.Session) {
 func (p *capped) Close() {
 	close(p.leases)
 	p.pool.Close()
+}
+
+func (p *capped) Used() int {
+	return p.pool.Used()
 }
 
 var _ Pool = &capped{}

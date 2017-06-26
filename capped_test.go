@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/mgo.v2"
+	mgo "gopkg.in/mgo.v2"
 )
 
 func TestCapped_Get(t *testing.T) {
@@ -91,4 +91,19 @@ func TestCapped_Close(t *testing.T) {
 	assert.NotPanics(t, func() {
 		orig.Copy().Close()
 	})
+}
+
+func TestCapped_Used(t *testing.T) {
+	orig := session(t)
+	defer orig.Close()
+
+	p := NewCapped(orig, 1)
+	defer p.Close()
+	assert.Equal(t, 0, p.Used())
+
+	leak := p.Get()
+	assert.Equal(t, 1, p.Used())
+
+	p.Put(leak)
+	assert.Equal(t, 0, p.Used())
 }
