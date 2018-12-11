@@ -10,7 +10,7 @@
 // Both a leaky and capped version of the Pool is available, depending on need.
 package mgopool
 
-import mgo "gopkg.in/mgo.v2"
+import mgo "github.com/globalsign/mgo"
 
 // The Pool interface describes the mechanisms for retrieving and releasing mgo.Sessions. The pool should be used in
 // place of calling Copy/Clone and Close on mgo.Session directly.

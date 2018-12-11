@@ -1,6 +1,6 @@
 package mgopool
 
-import mgo "gopkg.in/mgo.v2"
+import mgo "github.com/globalsign/mgo"
 
 type capped struct {
 	pool   Pool

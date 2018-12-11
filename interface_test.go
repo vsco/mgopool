@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"gopkg.in/mgo.v2"
+	"github.com/globalsign/mgo"
 )
 
 func session(t *testing.T) *mgo.Session {

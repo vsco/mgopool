@@ -3,7 +3,7 @@
 Package mgopool provides buffer implementations around [mgo.Session (v2)][mgo].
 
 ```
-go get gopkg.in/mgo.v2
+go get github.com/globalsign/mgo
 go get github.com/vsco/mgopool
 ```
 
@@ -69,10 +69,10 @@ func doSomething(s *mgo.Session) error {
 }
 ```
 
-[mgo]:           https://godoc.org/gopkg.in/mgo.v2
-[Session.Copy]:  https://godoc.org/gopkg.in/mgo.v2#Session.Copy
-[Session.Clone]: https://godoc.org/gopkg.in/mgo.v2#Session.Clone
-[Session.Close]: https://godoc.org/gopkg.in/mgo.v2#Session.Close
+[mgo]:           https://godoc.org/github.com/globalsign/mgo
+[Session.Copy]:  https://godoc.org/github.com/globalsign/mgo#Session.Copy
+[Session.Clone]: https://godoc.org/github.com/globalsign/mgo#Session.Clone
+[Session.Close]: https://godoc.org/github.com/globalsign/mgo#Session.Close
 
 ## Testing
 
