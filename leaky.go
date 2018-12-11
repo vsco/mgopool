@@ -3,7 +3,7 @@ package mgopool
 import (
 	"sync/atomic"
 
-	mgo "gopkg.in/mgo.v2"
+	mgo "github.com/globalsign/mgo"
 )
 
 type leaky struct {
