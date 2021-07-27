@@ -1,3 +1,9 @@
+## ***** DEPRECATION NOTICE ******
+The mongo library that this project depends on has been deprecated ([mgo](https://github.com/globalsign/mgo)), in favor of the 
+[official driver released by mongodb](https://github.com/mongodb/mongo-go-driver). The official driver includes an internal
+mongo connection pool by default, which obviates this library.
+
+
 # mgopool<br> [![GoDoc](https://godoc.org/github.com/vsco/mgopool?status.svg)](https://godoc.org/github.com/vsco/mgopool) [![Build Status](https://travis-ci.org/vsco/mgopool.svg?branch=master)](https://travis-ci.org/vsco/mgopool)
 
 Package mgopool provides buffer implementations around [mgo.Session (v2)][mgo].
